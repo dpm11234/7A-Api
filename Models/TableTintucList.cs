@@ -5,7 +5,7 @@ namespace H7A_Api.Models
 {
   public partial class TableTintucList
   {
-    public uint Id { get; set; }
+    public int Id { get; set; }
     public int Noibat { get; set; }
     public string Photo { get; set; }
     public string Thumb { get; set; }
