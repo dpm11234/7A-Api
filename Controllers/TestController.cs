@@ -19,7 +19,7 @@ namespace _7A_Api.Controllers
       return Ok(new
       {
         news = from news in
-        _context.TableTintuc
+        _context.TableTintuc.ToList()
                join newsList in _context.TableTintucLists.ToList()
                on news.Id_Lv0 equals newsList.Id
                select new
