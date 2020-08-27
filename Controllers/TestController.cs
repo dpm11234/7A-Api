@@ -1,5 +1,6 @@
 using H7A_Api.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace _7A_Api.Controllers
 {
@@ -12,9 +13,20 @@ namespace _7A_Api.Controllers
       _context = context;
     }
 
+    [Route("/api/test")]
     public IActionResult Index()
     {
-      return Ok(new { news = _context.TableTintuc });
+      return Ok(new
+      {
+        news = from news in
+        _context.TableTintuc
+               join newsList in _context.TableTintucLists.ToList()
+               on news.Id_Lv0 equals newsList.Id
+               select new
+               {
+
+               }
+      });
     }
   }
 }

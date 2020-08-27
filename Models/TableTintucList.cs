@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 
 namespace H7A_Api.Models
 {
-  public partial class TableTintuc
+  public partial class TableTintucList
   {
     public uint Id { get; set; }
     public int Noibat { get; set; }
