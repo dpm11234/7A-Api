@@ -8,7 +8,12 @@ namespace H7A_Api.Models
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     { }
 
-    public DbSet<Table_Tintuc> Table_Tintuc { get; set; }
+    public DbSet<TableTintuc> TableTintuc { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+      builder.Entity<TableTintuc>().ToTable("table_tintuc");
+    }
 
   }
 }

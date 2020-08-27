@@ -14,7 +14,7 @@ namespace _7A_Api.Controllers
 
     public IActionResult Index()
     {
-      return Ok(new { news = _context.Table_Tintuc });
+      return Ok(new { news = _context.TableTintuc });
     }
   }
 }

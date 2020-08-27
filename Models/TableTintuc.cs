@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace H7A_Api.Models
 {
-  public partial class Table_Tintuc
+  public partial class TableTintuc
   {
     public uint Id { get; set; }
     public int Noibat { get; set; }
