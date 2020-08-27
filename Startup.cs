@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using H7A_Api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace H7A_Api
 {
@@ -26,7 +28,10 @@ namespace H7A_Api
     {
       services.AddControllers();
 
-      Console.WriteLine(_config.GetConnectionString("Default"));
+      services.AddDbContext<AppDbContext>(options =>
+      {
+        options.UseMySql(_config.GetConnectionString("Default"));
+      });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
