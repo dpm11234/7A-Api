@@ -25,6 +25,8 @@ namespace H7A_Api
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllers();
+
+      Console.WriteLine(_config.GetConnectionString("Default"));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
