@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>_7A_Api</RootNamespace>
+    <RootNamespace>H7A_Api</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
