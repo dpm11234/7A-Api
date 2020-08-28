@@ -16,16 +16,23 @@ namespace _7A_Api.Controllers
     [Route("/api/test")]
     public IActionResult Index()
     {
+
+      var tintuc = from tt in _context.TableTintuc select new { tt.Id_Lv0, name = tt.Ten_Vi, slug = tt.Tenkhongdau_Vi };
+      var tinTucList = from ttl in _context.TableTintucLists select new { ttl.Id, name = ttl.Ten_Vi, slug = ttl.Tenkhongdau_Vi };
+
+      var query = from ttl in tinTucList.ToList()
+                  join tt in tintuc.ToList() on ttl.Id equals tt.Id_Lv0
+                  into grouped
+                  select new
+                  {
+                    Name = ttl.name,
+                    Slug = ttl.slug,
+                    News = from item in grouped select new { item.name, item.slug }
+                  };
+
       return Ok(new
       {
-        news = from news in
-        _context.TableTintuc.ToList()
-               join newsList in _context.TableTintucLists.ToList()
-               on news.Id_Lv0 equals newsList.Id
-               select new
-               {
-
-               }
+        news = query.ToList()
       });
     }
   }
