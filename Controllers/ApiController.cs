@@ -63,10 +63,10 @@ namespace H7A_Api.Controllers
         public IActionResult GetAllMedia()
         {
               var result = _context.TableTintuc.Where(tt => tt.Hienthi == true && tt.Type == "thong-tin-truyen-thong")
-                                             .OrderByDescending((tt) => tt.Noibat)
-                                             .ThenByDescending((tt) => tt.Ngaysua)
-                                             .Select(tt => new { id = tt.Id, name = tt.Ten_Vi, slug = tt.Tenkhongdau_Vi, createdAt = tt.Ngaytao, pop = tt.Noibat })
-                                             .ToList();
+                                               .OrderByDescending((tt) => tt.Noibat)
+                                               .ThenByDescending((tt) => tt.Ngaysua)
+                                               .Select(tt => new { id = tt.Id, name = tt.Ten_Vi, slug = tt.Tenkhongdau_Vi, createdAt = tt.Ngaytao, pop = tt.Noibat })
+                                               .ToList();
 
             return Ok(result);
         }
