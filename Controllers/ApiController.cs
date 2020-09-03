@@ -144,5 +144,29 @@ namespace H7A_Api.Controllers
             return Ok(result);
 
         }
+
+        [HttpGet("qa")]
+        public async Task<ActionResult> GetQuestions()
+        {
+            var result = await _context.TableHoiDap.Where(hd => hd.HienThi == true)
+                                                   .OrderByDescending(dd => dd.NgayDang)
+                                                   .Select(hd => new QAndADTO
+                                                   {
+                                                       id = hd.Id,
+                                                       answer = hd.NoiDung,
+                                                       question = hd.Ten,
+                                                       createdAt = hd.NgayDang,
+                                                   })
+                                                   .ToListAsync();
+            return Ok(result);
+        }
+
+        public class QAndADTO
+        {
+            public uint id { get; set; }
+            public string question { get; set; }
+            public string answer { get; set; }
+            public int createdAt { get; set; }
+        }
     }
 }
