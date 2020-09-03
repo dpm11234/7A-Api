@@ -97,6 +97,7 @@ namespace H7A_Api.Controllers
             public uint id { get; set; }
             public string name { get; set; }
             public string slug { get; set; }
+            public string imgUrl { get; set; }
             public int createdAt { get; set; }
         }
 
@@ -127,6 +128,7 @@ namespace H7A_Api.Controllers
                                                   name = tt.Ten_Vi,
                                                   slug = tt.Tenkhongdau_Vi,
                                                   createdAt = tt.Ngaytao,
+                                                  imgUrl = tt.Thumb,
                                               }).ToListAsync();
         }
 
