@@ -75,6 +75,28 @@ namespace H7A_Api.Controllers
             return results;
         }
 
+
+        [HttpGet("sub-categories/{id}")]
+        public async Task<ActionResult> getSubCategories(uint id)
+        {
+            var parentId = await _context.TableTintuc.Where(tt => tt.Id == id).Select(tt => tt.Id_Lv0).SingleOrDefaultAsync();
+            var results = await _context.TableTintucLists.Where(ttl => ttl.Id == parentId && ttl.Hienthi == true)
+                                                         .Select(ttl => _context.TableTintuc.Where(tt => tt.Id_Lv0 == ttl.Id && tt.Hienthi == true).Select(tt => new CategoryChildDTO
+                                                         {
+                                                             id = tt.Id,
+                                                             name = tt.Ten_Vi,
+                                                             slug = tt.Tenkhongdau_Vi,
+                                                         }).ToList()
+                                                         ).SingleOrDefaultAsync();
+
+            if (results == null)
+            {
+                return NotFound(new { message = "No subcategories" });
+            }
+
+            return Ok(results);
+        }
+
         [HttpGet("news")]
         public async Task<ActionResult> GetAllNews()
         {
