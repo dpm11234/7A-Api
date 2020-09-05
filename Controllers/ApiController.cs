@@ -75,32 +75,6 @@ namespace H7A_Api.Controllers
             return results;
         }
 
-        public class CategoriesDTO
-        {
-            public int id { get; set; }
-
-            public string name { get; set; }
-            public string slug { get; set; }
-            public List<CategoryChildDTO> children { get; set; }
-
-        }
-        public class CategoryChildDTO
-        {
-
-            public uint id { get; set; }
-            public string name { get; set; }
-            public string slug { get; set; }
-        }
-
-        public class ArticleDTO
-        {
-            public uint id { get; set; }
-            public string name { get; set; }
-            public string slug { get; set; }
-            public string imgUrl { get; set; }
-            public int createdAt { get; set; }
-        }
-
         [HttpGet("news")]
         public async Task<ActionResult> GetAllNews()
         {
@@ -135,12 +109,23 @@ namespace H7A_Api.Controllers
         [HttpGet("article/{id}")]
         public async Task<ActionResult> GetArticleDetail(uint id)
         {
-            var result = await _context.TableTintuc.FindAsync(id);
-            if (result == null || result.Hienthi == false)
+            var result = await _context.TableTintuc.Where(tt => tt.Hienthi == true && tt.Id == id)
+                                                .Select(tt => new ArticleDetailsDTO
+                                                {
+                                                    id = tt.Id,
+                                                    name = tt.Ten_Vi,
+                                                    slug = tt.Tenkhongdau_Vi,
+                                                    imgUrl = tt.Photo,
+                                                    thumbUrl = tt.Thumb,
+                                                    content = tt.Noidung_Vi,
+                                                    updatedAt = tt.Ngaysua,
+                                                    views = tt.Luotxem,
+                                                })
+                                                   .SingleOrDefaultAsync();
+            if (result == null)
             {
                 return NotFound(new { message = "article not found" });
             }
-
             return Ok(result);
 
         }
@@ -161,12 +146,5 @@ namespace H7A_Api.Controllers
             return Ok(result);
         }
 
-        public class QAndADTO
-        {
-            public uint id { get; set; }
-            public string question { get; set; }
-            public string answer { get; set; }
-            public int createdAt { get; set; }
-        }
     }
 }
